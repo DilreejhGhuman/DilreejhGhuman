@@ -1,25 +1,28 @@
 
 let gridspace = 50;
 let goku;
+let ki = 50;
 
 
 
 
 function preload(){
   goku = loadImage("gokuWalking/STANDING (1).png");
+  ki = loadImage("ki blast/ki.png");
  }
 
 function setup() {
   createCanvas(4000, 4000);
-  gokumovement();
  
   
 }
 
 function draw() {
   background(5,24,26);
+  
   grid();
   image(goku, 0 ,0, 128, 192);
+  kiblast();
   
 }
 
@@ -34,10 +37,15 @@ function grid(){
 }
 }
 
-function gokumovement(){
-  if (w (keyIsPressed)){
-    goku (x =+ 50);
-  }
+function kiblast(){
+  if ( mouseIsPressed === true && mouseButton === LEFT ){
+    image(ki,0 ,0,128,100);
 
+    
+
+
+    
+    
+  }
 }
 
