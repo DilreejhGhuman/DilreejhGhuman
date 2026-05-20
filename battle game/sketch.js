@@ -1,6 +1,9 @@
-
+// task  ( make a mini gun style ki blast when ever left is clicked)
+//task  ( animate a fighering animation )
+// task ( give ATTACKS A VALUE FOR HEALTH AND CALCULATE)
+// task ( make images to detect if something is tuching or intracting with them)
 let gridspace = 50;
-let goku;
+let goku = 20000;
 let ki = 50;
 
 
@@ -13,6 +16,7 @@ function preload(){
 
 function setup() {
   createCanvas(4000, 4000);
+  
  
   
 }
