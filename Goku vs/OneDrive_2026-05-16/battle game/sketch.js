@@ -1,22 +1,22 @@
-
 let gridspace = 50;
 let goku;
 let ki;
 
 
-let gokuX = 0;
-let gokuY = 0;
-let kiblastX = gokuX;
-let kiblastY = gokuY;
 
-let kiTraveling = false;
-let showKiblast = false;
-//------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 function preload(){
   goku = loadImage("gokuWalking/STANDING (1).png");
    ki = loadImage("ki blast/ki.png");
+   tryframe = loadImage("gokumoves/ready to move 1.png")
  }
-//--------------------------------------------------------------------------------------------------------------------
+
+
 function setup() {
   createCanvas(4000, 4000);
 }
@@ -26,13 +26,14 @@ function draw() {
  // grid();
  
   image(goku, gokuX ,gokuY, 128, 192);
+  image(tryframe, gokuX,gokuY, 118, 154);
   blast();
   kiblast();
   kiattack();
   gokumovement();
   
 }
-//-------------------------------------------------------------------------------------------------------------------------
+
 function grid(){
   for (let x = 0; x < width ; x += gridspace){
     stroke(255)
@@ -44,14 +45,22 @@ function grid(){
 }
 }
 
+
 function gokumovement(){
   if ( (keyIsPressed)){
     if (key == 'd'){
       gokuX += 6;
 
     }
+    
   }
+  if ((keyIsPressed)){
+    if (key == 'd'){
 
+    }
+
+  }
+  
   if ( (keyIsPressed)){
     if (key == 'a'){
       gokuX -= 6;
@@ -70,8 +79,107 @@ function gokumovement(){
       gokuY -= 6;
     }
   }
+
+  
+
+
+
+
+
+
+
 }
-//------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function blast(){
   if(showKiblast === true){
     image(ki,kiblastX,kiblastY ,128,100);
@@ -95,7 +203,14 @@ function kiattack(){
 
 
 
+// for positions
+  let gokuX = 0;
+  let gokuY = 0;
+  let kiblastX = gokuX;
+  let kiblastY = gokuY;
+  let kiTraveling = false;
+  let showKiblast = false;
 
-
-
- 
+//for
+  let tryframe;
+  let whichframe;
