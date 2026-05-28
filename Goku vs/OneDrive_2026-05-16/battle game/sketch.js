@@ -1,6 +1,16 @@
 let gridspace = 50;
 let goku;
 let ki;
+let framerun = [];
+let currentframe = 0;
+let gokuX = 0;
+let gokuY = 0;
+let kiblastX = gokuX;
+let kiblastY = gokuY;
+let kiTraveling = false;
+let showKiblast = false;
+
+
 
 
 
@@ -11,9 +21,16 @@ let ki;
 
 
 function preload(){
-  goku = loadImage("gokuWalking/STANDING (1).png");
-   ki = loadImage("ki blast/ki.png");
-   tryframe = loadImage("gokumoves/ready to move 1.png")
+  framerun[0] = loadImage("gokuWalking/STANDING (1).png");
+  ki = loadImage("ki blast/ki.png");
+  framerun[1] = loadImage("gokumoves/ready to move 1.png");
+  framerun[2] = loadImage("gokumoves/ready to move 2.png");
+  framerun[3] = loadImage("gokumoves/ready to move 3.png");
+  framerun[4] = loadImage("gokumoves/ready to move 4.png");
+  framerun[5] = loadImage("gokumoves/ready to run 5.png");
+  framerun[6] = loadImage("gokumoves/ready to run 6.png");
+
+  
  }
 
 
@@ -23,10 +40,8 @@ function setup() {
 
 function draw() {
   background(5,24,26);
- // grid();
- 
-  image(goku, gokuX ,gokuY, 128, 192);
-  image(tryframe, gokuX,gokuY, 118, 154);
+  image(framerun[6], 700 ,100, 128, 192);
+  image(framerun[currentframe], gokuX, gokuY, 128, 192);
   blast();
   kiblast();
   kiattack();
@@ -34,22 +49,14 @@ function draw() {
   
 }
 
-function grid(){
-  for (let x = 0; x < width ; x += gridspace){
-    stroke(255)
-    line(x, 0, x, height);
-  }
-  for (let y = 0; y < height ; y += gridspace){
-    stroke(255);
-    line(0, y, width, y);
-}
-}
-
 
 function gokumovement(){
   if ( (keyIsPressed)){
     if (key == 'd'){
       gokuX += 6;
+      if (currentframe <framerun.length -1 ){
+        currentframe++;
+      }
 
     }
     
@@ -195,22 +202,11 @@ function kiblast(){
 }
 
 function kiattack(){
-  if (kiTraveling = true){
-    kiblastX += 4;
+  if (kiTraveling === true){
+    kiblastX += 12;
     }
   }
 
 
 
 
-// for positions
-  let gokuX = 0;
-  let gokuY = 0;
-  let kiblastX = gokuX;
-  let kiblastY = gokuY;
-  let kiTraveling = false;
-  let showKiblast = false;
-
-//for
-  let tryframe;
-  let whichframe;
