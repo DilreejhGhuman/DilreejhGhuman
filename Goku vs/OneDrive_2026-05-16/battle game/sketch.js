@@ -2,6 +2,9 @@ let gridspace = 50;
 let goku;
 let ki;
 let framerun = [];
+let framestanding = [];
+let gokushoots = [];
+
 let currentframe = 0;
 let gokuX = 0;
 let gokuY = 0;
@@ -11,27 +14,17 @@ let kiTraveling = false;
 let showKiblast = false;
 
 
-
-
-
-
-
-
-
-
-
 function preload(){
-  framerun[0] = loadImage("gokuWalking/STANDING (1).png");
   ki = loadImage("ki blast/ki.png");
-  framerun[1] = loadImage("gokumoves/ready to move 1.png");
-  framerun[2] = loadImage("gokumoves/ready to move 2.png");
-  framerun[3] = loadImage("gokumoves/ready to move 3.png");
-  framerun[4] = loadImage("gokumoves/ready to move 4.png");
-  framerun[5] = loadImage("gokumoves/ready to run 5.png");
-  framerun[6] = loadImage("gokumoves/ready to run 6.png");
-
   
- }
+  framerun[0] = loadImage("gokuWalking/STANDING (1).png");
+  framerun[1] = loadImage("gokumoves/ready to move 4.png");
+  framerun[2] = loadImage("gokumoves/ready to run 5.png");
+  framerun[3] = loadImage("gokumoves/ready to run 6.png");
+
+  gokushoots[0] = loadImage("goku shoots/gokushoots1.png");
+  gokushoots[1] = loadImage("goku shoots/gokushoots2.png");
+}
 
 
 function setup() {
@@ -40,8 +33,9 @@ function setup() {
 
 function draw() {
   background(5,24,26);
-  image(framerun[6], 700 ,100, 128, 192);
+  //image(framerun[6], 700 ,100, 128, 192);
   image(framerun[currentframe], gokuX, gokuY, 128, 192);
+  image(gokushoots[currentframe], 200, 300, 128, 192);
   blast();
   kiblast();
   kiattack();
@@ -51,13 +45,19 @@ function draw() {
 
 
 function gokumovement(){
+
   if ( (keyIsPressed)){
     if (key == 'd'){
-      gokuX += 6;
-      if (currentframe <framerun.length -1 ){
-        currentframe++;
-      }
+      gokuX += 10;
 
+      if (frameCount% 6 === 0){
+        if (currentframe < framerun.length -1 ){
+          currentframe++;
+        }
+  
+
+      }
+     
     }
     
   }
@@ -88,104 +88,7 @@ function gokumovement(){
   }
 
   
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function blast(){
   if(showKiblast === true){
@@ -198,6 +101,10 @@ function kiblast(){
   if (mouseIsPressed === true && mouseButton === LEFT ){
     showKiblast = true;
     kiTraveling = true;
+    if (currentframe <gokushoots.length -1 ){
+      currentframe++;
+    }
+
   }
 }
 
@@ -205,6 +112,14 @@ function kiattack(){
   if (kiTraveling === true){
     kiblastX += 12;
     }
+  }
+  if (frameCount% 2 === 0){
+    
+  if (currentframe <gokushoots.length -1 ){
+    currentframe++;
+  }
+
+
   }
 
 
