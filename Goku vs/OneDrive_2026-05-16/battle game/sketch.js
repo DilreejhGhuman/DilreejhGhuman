@@ -1,11 +1,14 @@
 let gridspace = 50;
 let goku;
+
 let ki;
 let framerun = [];
+let frameback;
 let framestanding = [];
 let gokushoots = [];
 
 let currentframe = 0;
+let gokuhealth = 10000;
 let gokuX = 0;
 let gokuY = 0;
 let kiblastX = gokuX;
@@ -21,6 +24,7 @@ function preload(){
   framerun[1] = loadImage("gokumoves/ready to move 4.png");
   framerun[2] = loadImage("gokumoves/ready to run 5.png");
   framerun[3] = loadImage("gokumoves/ready to run 6.png");
+  framerun[4]   = loadImage("gokumoves/gokuback.png");
 
   gokushoots[0] = loadImage("goku shoots/gokushoots1.png");
   gokushoots[1] = loadImage("goku shoots/gokushoots2.png");
@@ -33,9 +37,10 @@ function setup() {
 
 function draw() {
   background(5,24,26);
-  //image(framerun[6], 700 ,100, 128, 192);
+  
   image(framerun[currentframe], gokuX, gokuY, 128, 192);
-  image(gokushoots[currentframe], 200, 300, 128, 192);
+  print(gokuhealth);
+  
   blast();
   kiblast();
   kiattack();
@@ -45,6 +50,7 @@ function draw() {
 
 
 function gokumovement(){
+
 
   if ( (keyIsPressed)){
     if (key == 'd'){
@@ -61,19 +67,18 @@ function gokumovement(){
     }
     
   }
-  if ((keyIsPressed)){
-    if (key == 'd'){
-
-    }
-
-  }
+  
   
   if ( (keyIsPressed)){
+    
     if (key == 'a'){
       gokuX -= 6;
+      framerun[currentframe = 4];
+
 
     }
-  }
+
+   }
 
   if ( (keyIsPressed)){
     if (key == 's'){
@@ -101,7 +106,7 @@ function kiblast(){
   if (mouseIsPressed === true && mouseButton === LEFT ){
     showKiblast = true;
     kiTraveling = true;
-    if (currentframe <gokushoots.length -1 ){
+    if (currentframe < gokushoots.length -1 ){
       currentframe++;
     }
 
