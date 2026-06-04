@@ -20,7 +20,7 @@ let showKiblast = false;
 function preload(){
   ki = loadImage("ki blast/ki.png");
   
-  framerun[0] = loadImage("gokuWalking/STANDING (1).png");
+  framerun[0] = loadImage("gokuWalking/ichigostand.png");
   framerun[1] = loadImage("gokumoves/ready to move 4.png");
   framerun[2] = loadImage("gokumoves/ready to run 5.png");
   framerun[3] = loadImage("gokumoves/ready to run 6.png");
@@ -28,6 +28,8 @@ function preload(){
 
   gokushoots[0] = loadImage("goku shoots/gokushoots1.png");
   gokushoots[1] = loadImage("goku shoots/gokushoots2.png");
+ 
+  
 }
 
 
@@ -38,8 +40,10 @@ function setup() {
 function draw() {
   background(5,24,26);
   
-  image(framerun[currentframe], gokuX, gokuY, 128, 192);
+  image(framerun[currentframe], gokuX, gokuY, 228, 192);
   print(gokuhealth);
+  //image(ichigo, 100, 200, 228 , 192);
+  
   
   blast();
   kiblast();
