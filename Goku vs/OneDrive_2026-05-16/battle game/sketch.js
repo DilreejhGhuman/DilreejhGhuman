@@ -8,7 +8,7 @@ let framestanding = [];
 let gokushoots = [];
 
 let currentframe = 0;
-let gokuhealth = 10000;
+
 let gokuX = 0;
 let gokuY = 0;
 let kiblastX = gokuX;
@@ -49,6 +49,10 @@ function setup() {
 
 function draw() {
   background(5,24,26);
+
+  healthbargoku();
+  healthbarIchigo();
+ 
   
   image(framerun[currentframe], gokuX, gokuY, 128, 192);
   ichigo();
@@ -59,6 +63,7 @@ function draw() {
   kiblast();
   kiattack();
   gokumovement();
+
   
   
 }
@@ -128,11 +133,27 @@ function kiattack(){
   }
 }
 function ichigo(){
-  if (Ichigorun% 6 === 0){
+  if (Ichigorun% 5 === 0){
     if (currentframe < Ichigorun.length -1 ){
       currentframe++;
     }
   }
+}
+
+function healthbargoku(){
+  let gokuhealth = 10000;
+  
+  fill (83,166,195);
+  rect(1680,880,200,25);
+
+}
+
+
+function healthbarIchigo(){
+  let ichigohealth = 30000;
+  fill (237,114,0);
+  rect(425,40,1000,25);
+
 }
 
 
