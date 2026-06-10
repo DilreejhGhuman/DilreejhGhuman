@@ -18,8 +18,6 @@ let kiblastX = gokuX;
 let kiblastY = gokuY;
 let kiTraveling = false;
 let showKiblast = false;
-let ichigooattack = [];
-let ichigoattackframe = 0;
 
 
 let Ichigorun = [];
@@ -63,12 +61,6 @@ function preload(){
   getsugaitself[3] = loadImage("getsuga tensho/getsuga (3).png");
   getsugaitself[4] = loadImage("getsuga tensho/getsuga (4).png");
 
-  ichigooattack[0] = loadImage("ichigo attack/attack.png");
-  ichigooattack[1] = loadImage("ichigo attack/attack (1).png");
-  ichigooattack[2] = loadImage("ichigo attack/attack (2).png");
-  
-  
-
 
 }
 
@@ -85,10 +77,6 @@ function draw() {
   getsugatensho();
   image(Ichigorun[ichigoframe], 100, 100, 228,192);
   image(getsuga[ichigogetsugaframe], 500, 100 , 228, 192);
-  image(ichigooattack[0], 200, 600, 228, 192);
-  image(ichigooattack[1], 410, 600, 228, 192);
-  image(ichigooattack[2], 650, 600, 328, 210);
-  
 
 
 
@@ -200,6 +188,10 @@ function getsugatensho(){
   }
 }
 
+function getsugamoving(){
+  
+
+}
 
 function healthbargoku(){
   let gokuhealth = 10000;
