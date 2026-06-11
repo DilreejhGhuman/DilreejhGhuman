@@ -22,6 +22,7 @@ let ichigooattack = [];
 let ichigoattackframe = 0;
 
 
+
 let Ichigorun = [];
 let getsuga = [];
 let getsugaitself = [];
@@ -30,6 +31,7 @@ let ichigoY= 500;
 
 let getsugaX = ichigox + 5;
 let getsugaY = ichigoY;
+let gokuhealthloose = 2;
 
 function preload(){
   ki = loadImage("ki blast/ki.png");
@@ -66,7 +68,11 @@ function preload(){
   ichigooattack[0] = loadImage("ichigo attack/attack.png");
   ichigooattack[1] = loadImage("ichigo attack/attack (1).png");
   ichigooattack[2] = loadImage("ichigo attack/attack (2).png");
-  
+  ichigooattack[3] = loadImage("ichigo attack/attack (3).png");
+  ichigooattack[4] = loadImage("ichigo attack/attack (4).png");
+  ichigooattack[5] = loadImage("ichigo attack/attack (5).png");
+
+
   
 
 
@@ -85,9 +91,12 @@ function draw() {
   getsugatensho();
   image(Ichigorun[ichigoframe], 100, 100, 228,192);
   image(getsuga[ichigogetsugaframe], 500, 100 , 228, 192);
-  image(ichigooattack[0], 200, 600, 228, 192);
-  image(ichigooattack[1], 410, 600, 228, 192);
-  image(ichigooattack[2], 650, 600, 328, 210);
+  
+  image(ichigooattack[ichigoattackframe], 200, 600, 228, 192);
+  swordattack();
+  
+
+
   
 
 
@@ -95,6 +104,7 @@ function draw() {
 
   healthbargoku();
   healthbarIchigo();
+  healthbargokuchange();
  
   
   
@@ -200,12 +210,28 @@ function getsugatensho(){
   }
 }
 
+function swordattack(){
+  if (frameCount% 9 === 0){
+    if (ichigoattackframe< ichigooattack.length -1 ){
+      ichigoattackframe++;
+    } else{
+      ichigoattackframe = 0;
+    }
+  }
+
+}
+
 
 function healthbargoku(){
-  let gokuhealth = 10000;
-  
   fill (83,166,195);
   rect(1680,880,200,25);
+}
+
+
+function healthbargokuchange(){
+  fill ("white");
+  rect(1880,880,gokuhealthloose,25);
+
 }
 
 
