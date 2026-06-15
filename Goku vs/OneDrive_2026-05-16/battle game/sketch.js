@@ -2,6 +2,7 @@ let gridspace = 50;
 let goku;
   //286% 297%
 let ki;
+let lossgoku;
 let framerun = [];
 let frameback;
 let framestanding = [];
@@ -12,6 +13,9 @@ let ichigogetsugaframe = 0;
 let getsugaframe = 0;
 let currentframe = 0;
 let gokuhealth = 10000;
+let ichigohealth = 300000;
+let gokuhealthloose = gokuhealth;
+let ichicgohealthloose = ichigohealth;
 let gokuX = 0;
 let gokuY = 0;
 let kiblastX = gokuX;
@@ -31,10 +35,12 @@ let ichigoY= 500;
 
 let getsugaX = ichigox + 5;
 let getsugaY = ichigoY;
-let gokuhealthloose = 2;
+let gokuhealthbarloose = 2;
+let ichigohealthbarloose = 2;
 
 function preload(){
   ki = loadImage("ki blast/ki.png");
+  lossgoku = loadImage("loose won/images (1).jpg");
   
   framerun[0] = loadImage("gokuWalking/STANDING (1).png");
   framerun[1] = loadImage("gokumoves/ready to run 5.png");
@@ -80,19 +86,16 @@ function preload(){
 
 
 function setup() {
-  createCanvas(4000, 4000);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
   background(5,24,26);
   
   image(framerun[gokuframe], gokuX, gokuY, 128, 192);
+  image(Ichigorun[ichigoframe], ichigox, ichigoY, 248, 210);
   ichigo();
   getsugatensho();
-  image(Ichigorun[ichigoframe], 100, 100, 228,192);
-  image(getsuga[ichigogetsugaframe], 500, 100 , 228, 192);
-  
-  image(ichigooattack[ichigoattackframe], 200, 600, 228, 192);
   swordattack();
   
 
@@ -105,8 +108,12 @@ function draw() {
   healthbargoku();
   healthbarIchigo();
   healthbargokuchange();
+  healthbarichigochange();
+  gameover();
  
-  
+  print(ichigohealth);
+  //print(gokuhealth);
+  bossmovement();
   
   
 
@@ -117,6 +124,8 @@ function draw() {
   kiattack();
   gokumovement();
   
+ 
+  
   
 }
 
@@ -126,19 +135,24 @@ function gokumovement(){
 
   if ( (keyIsPressed)){
     if (key == 'd'){
-      gokuX += 10;
+      gokuX += 15;
      
 
       if (frameCount% 6 === 0){
         gokuframe = (gokuframe + 1) % 3;
        
       }
+
+      
+      
     }
 
       
     if (key == 'a'){
-      gokuX -= 6;
+      gokuX -= 15;
       gokuframe = 3;
+      
+      
 
 
     } 
@@ -152,13 +166,13 @@ function gokumovement(){
 
   if ( (keyIsPressed)){
     if (key == 's'){
-      gokuY+= 6;
+      gokuY+= 15;
     }
   }
 
   if ( (keyIsPressed)){
     if (key == 'w'){
-      gokuY -= 6;
+      gokuY -= 15;
     }
   }
 }
@@ -180,9 +194,10 @@ function kiattack(){
   if (kiTraveling === true){
     kiblastX += 12;
     }
-  }
-  if (frameCount% 2 === 0){
-    
+}
+  
+  
+if (frameCount% 2 === 0){
   if (currentframe <gokushoots.length -1 ){
     currentframe++;
   }
@@ -230,16 +245,76 @@ function healthbargoku(){
 
 function healthbargokuchange(){
   fill ("white");
-  rect(1880,880,gokuhealthloose,25);
+  rect(1880,880,gokuhealthbarloose,25);
+
+  if ( gokuhealth < gokuhealthloose){
+    gokuhealthbarloose -= 2;
+
+  }
+  gokuhealthloose  = gokuhealth;
+
+
+
 
 }
 
+function healthbarichigochange(){
+  fill("white");
+  rect(1424,40,ichigohealthbarloose,25);
+  if (ichigohealth < ichicgohealthloose){
+  ichigohealthbarloose -= 1.66;
+  }
+  ichicgohealthloose = ichigohealth;
+  
+}
 
 function healthbarIchigo(){
-  let ichigohealth = 30000;
   fill (237,114,0);
   rect(425,40,1000,25);
 }
+
+
+function gameover(){
+  if (gokuhealth <= 0){
+    fill("red");
+    textSize(100);
+    textAlign(CENTER, CENTER );
+    text('game over goku loose', width/2, height/2);
+    
+  }
+
+  if(ichigohealth <= 0){
+    fill("green");
+    textSize(100);
+    textAlign(CENTER, CENTER);
+     text('You won ', width/2, height/2);
+  }
+}
+
+function bossmovement(){
+   if (ichigox < gokuX ){
+    ichigox += 4;
+  }
+
+  if (ichigox > gokuX){
+    ichigox -= 4;
+  }
+
+  if (ichigoY > gokuY){
+    ichigoY -=2
+  }
+
+    if (ichigoY < gokuY){
+    ichigoY +=2
+  } 
+
+}
+
+
+
+
+
+
 
 
 
