@@ -1,3 +1,112 @@
+class Ichigo{
+  constructor(x,y){
+    this.ichigox = x;
+    this.ichigoY = y;
+    this.flip = false;
+    this.frame = 0;
+    this.attack = 0;
+    this.runninganimation = true;
+
+  }
+  
+  chassingframe(){
+    if(this.runninganimation === true){
+      if (frameCount% 6 === 0){
+    if (this.frame < Ichigorun.length -1 ){
+      this.frame++;
+    } else{
+      this.frame = 0;
+    }
+  }
+
+    }
+    
+
+
+
+
+  }
+
+  swordattack(){
+     if(this.runninganimation === false){
+      if (frameCount% 9 === 0){
+         if (this.attack< ichigooattack.length -1 ){
+          this.attack++;
+        } else{
+          this.attack = 0;
+          this.runninganimation =true;
+        }
+      }
+    }
+   }
+  
+
+
+  chaseing(){
+
+    if (this.runninganimation === true){
+      if (this.ichigox < gokuX ){
+        this.ichigox += 7;
+        this.flip = false;
+      }
+      
+      if (this.ichigox  > gokuX){
+        this.ichigox -= 7;
+        this.flip = true;
+      }
+      if (this.ichigoY > gokuY){
+        this.ichigoY -=2;
+       }
+       if (this.ichigoY < gokuY){
+        this.ichigoY +=2;
+      } 
+    }
+  }
+
+  display(){
+    if(this.runninganimation === true){
+      push();
+      if (this.flip === true){
+        scale(-1,1);
+        image(Ichigorun[this.frame], -this.ichigox - 250, this.ichigoY, 248, 210);
+      } else {
+        image(Ichigorun[this.frame], this.ichigox , this.ichigoY, 248, 210);
+       }
+       pop();
+      }
+    }
+  
+    ichigoswordattack(){
+    if (abs(this.ichigox- gokuX)< 30 && abs(this.ichigoY - gokuY)< 30){
+    
+      this.runninganimation = false;
+      if (this.runninganimation === false){
+        gokuhealth -= 150;
+      }
+      push();
+      if (this.flip === true){
+        scale(-1,1);
+        image(ichigooattack[this.attack], -this.ichigox - 250, this.ichigoY, 248, 210);
+      } else {
+        image(ichigooattack[this.attack], this.ichigox , this.ichigoY, 248, 210);
+      }
+      
+      
+      pop();
+    
+
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
 let gridspace = 50;
 let goku;
   //286% 297%
@@ -12,7 +121,7 @@ let ichigoframe  = 0;
 let ichigogetsugaframe = 0;
 let getsugaframe = 0;
 let currentframe = 0;
-let gokuhealth = 10000;
+let gokuhealth = 15000;
 let ichigohealth = 300000;
 let gokuhealthloose = gokuhealth;
 let ichicgohealthloose = ichigohealth;
@@ -37,6 +146,7 @@ let getsugaX = ichigox + 5;
 let getsugaY = ichigoY;
 let gokuhealthbarloose = 2;
 let ichigohealthbarloose = 2;
+let bossichigo;
 
 function preload(){
   ki = loadImage("ki blast/ki.png");
@@ -87,17 +197,23 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  bossichigo = new Ichigo(1000,500);
 }
 
 function draw() {
   background(5,24,26);
   
   image(framerun[gokuframe], gokuX, gokuY, 128, 192);
-  image(Ichigorun[ichigoframe], ichigox, ichigoY, 248, 210);
+  
   ichigo();
   getsugatensho();
   swordattack();
-  
+
+  bossichigo.chassingframe();
+  bossichigo.chaseing();
+  bossichigo.display();
+  bossichigo.swordattack();
+  bossichigo.  ichigoswordattack();
 
 
   
@@ -112,8 +228,7 @@ function draw() {
   gameover();
  
   print(ichigohealth);
-  //print(gokuhealth);
-  bossmovement();
+
   
   
 
@@ -139,13 +254,23 @@ function gokumovement(){
      
 
       if (frameCount% 6 === 0){
-        gokuframe = (gokuframe + 1) % 3;
+        if (gokuframe === 3 || gokuframe === 0 ){
+          gokuframe = 1 ;
+
+          
+        } 
+
+        else if (gokuframe === 1){
+          gokuframe = 2;
+        }
+
+
        
       }
 
       
       
-    }
+    } 
 
       
     if (key == 'a'){
@@ -166,16 +291,21 @@ function gokumovement(){
 
   if ( (keyIsPressed)){
     if (key == 's'){
-      gokuY+= 15;
+      gokuY+= 10;
     }
   }
 
   if ( (keyIsPressed)){
     if (key == 'w'){
-      gokuY -= 15;
+      gokuY -= 10;
     }
+  } else {
+    gokuframe = 0;
   }
 }
+
+
+
 function blast(){
   if(showKiblast === true){
     image(ki,kiblastX,kiblastY ,128,100);
@@ -206,13 +336,7 @@ if (frameCount% 2 === 0){
 
 
 function ichigo(){
-  if (frameCount% 6 === 0){
-    if (ichigoframe < Ichigorun.length -1 ){
-      ichigoframe++;
-    } else{
-      ichigoframe = 0;
-    }
-  }
+  
 }
 
 function getsugatensho(){
@@ -277,9 +401,10 @@ function healthbarIchigo(){
 function gameover(){
   if (gokuhealth <= 0){
     fill("red");
-    textSize(100);
+    textSize(64);
     textAlign(CENTER, CENTER );
     text('game over goku loose', width/2, height/2);
+    noloop();
     
   }
 
@@ -290,29 +415,6 @@ function gameover(){
      text('You won ', width/2, height/2);
   }
 }
-
-function bossmovement(){
-   if (ichigox < gokuX ){
-    ichigox += 4;
-  }
-
-  if (ichigox > gokuX){
-    ichigox -= 4;
-  }
-
-  if (ichigoY > gokuY){
-    ichigoY -=2
-  }
-
-    if (ichigoY < gokuY){
-    ichigoY +=2
-  } 
-
-}
-
-
-
-
 
 
 
